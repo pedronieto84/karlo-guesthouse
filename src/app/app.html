@@ -18,6 +18,7 @@
       <a href="#geo" (click)="mobileMenuOpen.set(false)" class="nav-link">{{ t('navbar.geo') }}</a>
       <a href="#springs" (click)="mobileMenuOpen.set(false)" class="nav-link">{{ t('navbar.springs') }}</a>
       <a href="#rooms" (click)="mobileMenuOpen.set(false)" class="nav-link">{{ t('navbar.rooms') }}</a>
+      <a href="#gallery" (click)="mobileMenuOpen.set(false)" class="nav-link">{{ t('navbar.gallery') }}</a>
       <a href="#calendar" (click)="mobileMenuOpen.set(false)" class="nav-link">{{ t('navbar.calendar') }}</a>
       <a href="#reviews" (click)="mobileMenuOpen.set(false)" class="nav-link">{{ t('navbar.reviews') }}</a>
       <a href="#contact" (click)="mobileMenuOpen.set(false)" class="nav-link">{{ t('navbar.contact') }}</a>
@@ -212,35 +213,51 @@
     </div>
 
     <div class="geo-grid">
-      <div class="geo-description">
-        <p class="lead-text" style="color: var(--color-gold-bright);">{{ t('geo.desc1') }}</p>
-        <p style="color: rgba(245, 248, 246, 0.85); margin-bottom: 24px;">{{ t('geo.desc2') }}</p>
+      <div class="geo-info-side">
+        <div class="geo-description">
+          <p class="lead-text" style="color: var(--color-gold-bright);">{{ t('geo.desc1') }}</p>
+          <p style="color: rgba(245, 248, 246, 0.85); margin-bottom: 24px;">{{ t('geo.desc2') }}</p>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="geo-stats-grid">
+          <div class="stat-card glass-panel">
+            <span class="material-symbols-outlined stat-icon">explore_nearby</span>
+            <div class="stat-number">{{ t('geo.stat_area') }}</div>
+            <div class="stat-label">{{ t('geo.stat_area_label') }}</div>
+          </div>
+
+          <div class="stat-card glass-panel">
+            <span class="material-symbols-outlined stat-icon">filter_hdr</span>
+            <div class="stat-number">{{ t('geo.stat_elev') }}</div>
+            <div class="stat-label">{{ t('geo.stat_elev_label') }}</div>
+          </div>
+
+          <div class="stat-card glass-panel">
+            <span class="material-symbols-outlined stat-icon">route</span>
+            <div class="stat-number">{{ t('geo.stat_len') }}</div>
+            <div class="stat-label">{{ t('geo.stat_len_label') }}</div>
+          </div>
+
+          <div class="stat-card glass-panel">
+            <span class="material-symbols-outlined stat-icon">group_off</span>
+            <div class="stat-number">{{ t('geo.stat_pop') }}</div>
+            <div class="stat-label">{{ t('geo.stat_pop_label') }}</div>
+          </div>
+        </div>
       </div>
 
-      <!-- Stats Grid -->
-      <div class="geo-stats-grid">
-        <div class="stat-card glass-panel">
-          <span class="material-symbols-outlined stat-icon">explore_nearby</span>
-          <div class="stat-number">{{ t('geo.stat_area') }}</div>
-          <div class="stat-label">{{ t('geo.stat_area_label') }}</div>
-        </div>
-
-        <div class="stat-card glass-panel">
-          <span class="material-symbols-outlined stat-icon">filter_hdr</span>
-          <div class="stat-number">{{ t('geo.stat_elev') }}</div>
-          <div class="stat-label">{{ t('geo.stat_elev_label') }}</div>
-        </div>
-
-        <div class="stat-card glass-panel">
-          <span class="material-symbols-outlined stat-icon">route</span>
-          <div class="stat-number">{{ t('geo.stat_len') }}</div>
-          <div class="stat-label">{{ t('geo.stat_len_label') }}</div>
-        </div>
-
-        <div class="stat-card glass-panel">
-          <span class="material-symbols-outlined stat-icon">group_off</span>
-          <div class="stat-number">{{ t('geo.stat_pop') }}</div>
-          <div class="stat-label">{{ t('geo.stat_pop_label') }}</div>
+      <!-- MAP VISUAL SIDE -->
+      <div class="geo-map-side">
+        <div class="map-card glass-panel">
+          <div class="map-card-header">
+            <span class="material-symbols-outlined">map</span>
+            <span>{{ t('geo.map_title') }}</span>
+          </div>
+          <div class="map-image-wrapper">
+            <img src="/images/map.jpg" alt="Mapa de Lashichala" class="map-img-visual">
+          </div>
+          <p class="map-caption">{{ t('geo.map_caption') }}</p>
         </div>
       </div>
     </div>
@@ -385,6 +402,91 @@
           </ul>
           <a href="#calendar" (click)="selectedRoomType.set('cabin')" class="btn-primary w-100">{{ t('rooms.book_now_btn') }}</a>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MEDIA GALLERY SECTION -->
+<section id="gallery" class="section-padding gallery-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">{{ t('navbar.gallery') }}</span>
+      <h2>{{ t('gallery.title') }}</h2>
+      <p class="section-subtitle">{{ t('gallery.subtitle') }}</p>
+    </div>
+
+    <!-- Video Showcase -->
+    <div class="video-showcase-grid">
+      <div class="video-card glass-panel shadow-md">
+        <div class="video-title">
+          <span class="material-symbols-outlined">waves</span>
+          <span>El Río Lajanura y su Sonido Relajante</span>
+        </div>
+        <div class="video-wrapper">
+          <video controls playsinline preload="metadata" class="gallery-video">
+            <source src="/images/IMG_1436.MOV" type="video/quicktime">
+            <source src="/images/IMG_1436.MOV" type="video/mp4">
+            Tu navegador no soporta la reproducción de video.
+          </video>
+        </div>
+      </div>
+
+      <div class="video-card glass-panel shadow-md">
+        <div class="video-title">
+          <span class="material-symbols-outlined">filter_hdr</span>
+          <span>El Valle y la Guesthouse Real</span>
+        </div>
+        <div class="video-wrapper">
+          <video controls playsinline preload="metadata" class="gallery-video">
+            <source src="/images/IMG_0779.MOV" type="video/quicktime">
+            <source src="/images/IMG_0779.MOV" type="video/mp4">
+            Tu navegador no soporta la reproducción de video.
+          </video>
+        </div>
+      </div>
+    </div>
+
+    <!-- Photo Gallery -->
+    <div class="photo-gallery-grid">
+      <div class="photo-card shadow-sm">
+        <img src="/images/IMG_0670.JPG" alt="Lashichala Valley View" class="gallery-img">
+      </div>
+      <div class="photo-card shadow-sm">
+        <img src="/images/IMG_0678.JPG" alt="Cáucaso Mountains" class="gallery-img">
+      </div>
+      <div class="photo-card shadow-sm">
+        <img src="/images/IMG_0720.JPG" alt="River Lajanura" class="gallery-img">
+      </div>
+      <div class="photo-card shadow-sm">
+        <img src="/images/IMG_0724.JPG" alt="Mineral Stream" class="gallery-img">
+      </div>
+      <div class="photo-card shadow-sm">
+        <img src="/images/IMG_0725.JPG" alt="Wild nature Georgia" class="gallery-img">
+      </div>
+      <div class="photo-card shadow-sm">
+        <img src="/images/IMG_0741.JPG" alt="Lashichala Landscape" class="gallery-img">
+      </div>
+      <div class="photo-card shadow-sm">
+        <img src="/images/IMG_0780.JPG" alt="Guesthouse surroundings" class="gallery-img">
+      </div>
+      <div class="photo-card shadow-sm">
+        <img src="/images/IMG_1435.JPG" alt="Nature Caucasus" class="gallery-img">
+      </div>
+      <div class="photo-card shadow-sm">
+        <img src="/images/IMG_1449.JPG" alt="Racha-Lechjumi Valley" class="gallery-img">
+      </div>
+      <div class="photo-card shadow-sm">
+        <img src="/images/IMG-20190709-WA0071.jpg" alt="Lashichala River Creek" class="gallery-img">
+      </div>
+      <div class="photo-card shadow-sm">
+        <img src="/images/IMG-20190814-WA0029.jpg" alt="Guesthouse View" class="gallery-img">
+      </div>
+      <div class="photo-card shadow-sm">
+        <img src="/images/IMG-20190814-WA0035.jpg" alt="Dining Table Karlo" class="gallery-img">
+      </div>
+      <div class="photo-card shadow-sm">
+        <img src="/images/IMG-20190814-WA0037.jpg" alt="Mountain Path" class="gallery-img">
       </div>
     </div>
   </div>

@@ -8,7 +8,8 @@
     "calendar": "Disponibilidad",
     "reviews": "Opiniones",
     "contact": "Contacto",
-    "book_now": "Reservar ya"
+    "book_now": "Reservar ya",
+    "gallery": "Galería"
   },
   "hero": {
     "title": "Karlo Guesthouse Lashichala",
@@ -46,7 +47,9 @@
     "stat_len": "25.2 km",
     "stat_len_label": "Longitud del Valle Fluvial",
     "stat_pop": "~0 hab.",
-    "stat_pop_label": "Densidad de Población (Mínima de Europa)"
+    "stat_pop_label": "Densidad de Población (Mínima de Europa)",
+    "map_title": "Mapa de la Región y Río Lajanura",
+    "map_caption": "Extensión de 500 km² sin población, bordeada por el río Lajanura y densos bosques del Cáucaso."
   },
   "springs": {
     "title": "Las Aguas Curativas",
@@ -114,5 +117,9 @@
     "map_sim": "Mapa interactivo de acceso a la montaña",
     "follow_us": "Síguenos en redes",
     "rights": "Todos los derechos reservados. Hecho con amor en el Cáucaso."
+  },
+  "gallery": {
+    "title": "El Valle en Imágenes y Videos",
+    "subtitle": "Capturas y grabaciones reales tomadas por nuestros visitantes"
   }
 }

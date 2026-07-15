@@ -8,7 +8,8 @@
     "calendar": "Rezervasyon",
     "reviews": "Yorumlar",
     "contact": "İletişim",
-    "book_now": "Hemen Rezervasyon"
+    "book_now": "Hemen Rezervasyon",
+    "gallery": "Galeri"
   },
   "hero": {
     "title": "Karlo Guesthouse Lashichala",
@@ -46,7 +47,9 @@
     "stat_len": "25.2 km",
     "stat_len_label": "Nehir Vadisi Uzunluğu",
     "stat_pop": "~0 kişi",
-    "stat_pop_label": "Nüfus Yoğunluğu (Avrupa'nın En Düşüğü)"
+    "stat_pop_label": "Nüfus Yoğunluğu (Avrupa'nın En Düşüğü)",
+    "map_title": "Bölge ve Lajanura Nehri Haritası",
+    "map_caption": "Nüfus barındırmayan 500 km²'lik alan, Lajanura Nehri ve Kafkasya'nın gür ormanlarıyla çevrilidir."
   },
   "springs": {
     "title": "Şifalı Sular",
@@ -114,5 +117,9 @@
     "map_sim": "İnteraktif dağ erişim haritası",
     "follow_us": "Bizi takip edin",
     "rights": "Tüm hakları saklıdır. Kafkasya'da sevgiyle yapılmıştır."
+  },
+  "gallery": {
+    "title": "Resimler ve Videolarla Vadi",
+    "subtitle": "Ziyaretçilerimiz tarafından çekilen gerçek kareler ve videolar"
   }
 }

@@ -8,7 +8,8 @@
     "calendar": "Verfügbarkeit",
     "reviews": "Bewertungen",
     "contact": "Kontakt",
-    "book_now": "Buchen"
+    "book_now": "Buchen",
+    "gallery": "Galerie"
   },
   "hero": {
     "title": "Karlo Guesthouse Lashichala",
@@ -46,7 +47,9 @@
     "stat_len": "25.2 km",
     "stat_len_label": "Länge des Flussbettes",
     "stat_pop": "~0 Einw.",
-    "stat_pop_label": "Bevölkerungsdichte (Niedrigste in Europa)"
+    "stat_pop_label": "Bevölkerungsdichte (Niedrigste in Europa)",
+    "map_title": "Karte der Region und des Lajanura-Flusses",
+    "map_caption": "500 km² unbewohntes Gebiet, begrenzt durch den Lajanura-Fluss und dichte Kaukasuswälder."
   },
   "springs": {
     "title": "Das heilende Wasser",
@@ -114,5 +117,9 @@
     "map_sim": "Interaktive Wander- und Anfahrtskarte",
     "follow_us": "Folgen Sie uns",
     "rights": "Alle Rechte vorbehalten. Mit Liebe im Kaukasus gemacht."
+  },
+  "gallery": {
+    "title": "Das Tal in Bildern und Videos",
+    "subtitle": "Echte Aufnahmen und Videos von unseren Besuchern"
   }
 }
