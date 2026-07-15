@@ -49,7 +49,7 @@ export class TranslationService {
       this.currentLangSignal.set(lang);
       this.loadedSignal.set(false);
       
-      const response = await fetch(`/i18n/${lang}.json`);
+      const response = await fetch(`/i18n/${lang}.json?v=${Date.now()}`);
       if (!response.ok) {
         throw new Error(`Could not load translations for language ${lang}`);
       }
