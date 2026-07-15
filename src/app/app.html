@@ -1,0 +1,669 @@
+<!-- GLASS NAVIGATION BAR -->
+<header class="navbar-container glass-panel" [class.mobile-open]="mobileMenuOpen()">
+  <div class="navbar-wrapper container">
+    <a href="#home" class="logo">
+      <span class="material-symbols-outlined logo-icon">nature_people</span>
+      <span class="logo-text">Karlo Guesthouse</span>
+    </a>
+
+    <!-- Hamburger menu icon for mobile -->
+    <button class="menu-toggle" (click)="mobileMenuOpen.set(!mobileMenuOpen())" aria-label="Toggle menu">
+      <span class="material-symbols-outlined">{{ mobileMenuOpen() ? 'close' : 'menu' }}</span>
+    </button>
+
+    <!-- Navigation links -->
+    <nav class="nav-links">
+      <a href="#home" (click)="mobileMenuOpen.set(false)" class="nav-link">{{ t('navbar.home') }}</a>
+      <a href="#about" (click)="mobileMenuOpen.set(false)" class="nav-link">{{ t('navbar.about') }}</a>
+      <a href="#geo" (click)="mobileMenuOpen.set(false)" class="nav-link">{{ t('navbar.geo') }}</a>
+      <a href="#springs" (click)="mobileMenuOpen.set(false)" class="nav-link">{{ t('navbar.springs') }}</a>
+      <a href="#rooms" (click)="mobileMenuOpen.set(false)" class="nav-link">{{ t('navbar.rooms') }}</a>
+      <a href="#calendar" (click)="mobileMenuOpen.set(false)" class="nav-link">{{ t('navbar.calendar') }}</a>
+      <a href="#reviews" (click)="mobileMenuOpen.set(false)" class="nav-link">{{ t('navbar.reviews') }}</a>
+      <a href="#contact" (click)="mobileMenuOpen.set(false)" class="nav-link">{{ t('navbar.contact') }}</a>
+      
+      <!-- Mobile-only actions inside dropdown menu -->
+      <div class="mobile-only-actions">
+        <div class="mobile-lang-selector">
+          @for (lang of translationService.languages; track lang.code) {
+            <button 
+              class="lang-pill" 
+              [class.active]="translationService.currentLang() === lang.code"
+              (click)="selectLanguage(lang.code); mobileMenuOpen.set(false)">
+              {{ lang.code.toUpperCase() }}
+            </button>
+          }
+        </div>
+        <a href="https://wa.me/34631331132" target="_blank" class="btn-primary w-100" (click)="mobileMenuOpen.set(false)">
+          <i class="fa-brands fa-whatsapp"></i>
+          <span>{{ t('navbar.book_now') }}</span>
+        </a>
+      </div>
+    </nav>
+
+    <!-- Language Switcher & Call CTA (Desktop only) -->
+    <div class="nav-actions">
+      <!-- Language Dropdown -->
+      <div class="lang-dropdown">
+        <button class="lang-btn btn-secondary" (click)="langDropdownOpen.set(!langDropdownOpen())">
+          <span class="material-symbols-outlined">language</span>
+          <span>{{ translationService.currentLang().toUpperCase() }}</span>
+          <span class="material-symbols-outlined chevron">keyboard_arrow_down</span>
+        </button>
+        
+        @if (langDropdownOpen()) {
+          <div class="lang-menu glass-panel animate-fade-in-up">
+            @for (lang of translationService.languages; track lang.code) {
+              <button 
+                class="lang-item" 
+                [class.active]="translationService.currentLang() === lang.code"
+                (click)="selectLanguage(lang.code)">
+                {{ lang.name }}
+              </button>
+            }
+          </div>
+        }
+      </div>
+
+      <!-- Quick WhatsApp Link -->
+      <a href="https://wa.me/34631331132" target="_blank" class="btn-primary">
+        <i class="fa-brands fa-whatsapp"></i>
+        <span>{{ t('navbar.book_now') }}</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO SECTION -->
+<section id="home" class="hero-section">
+  <!-- Background Image Overlay -->
+  <div class="hero-bg-overlay" style="background-image: linear-gradient(rgba(7, 13, 11, 0.45), rgba(7, 13, 11, 0.75)), url('/images/hero_bg.jpg');"></div>
+  
+  <div class="container hero-content animate-fade-in-up">
+    <div class="hero-text-wrapper">
+      <span class="hero-badge">{{ t('hero.subtitle') }}</span>
+      <h1 class="hero-title">{{ t('hero.title') }}</h1>
+      <p class="hero-desc">{{ t('hero.desc') }}</p>
+      
+      <div class="hero-actions">
+        <a href="#calendar" class="btn-primary">
+          <span class="material-symbols-outlined">calendar_today</span>
+          <span>{{ t('navbar.calendar') }}</span>
+        </a>
+        <a href="#about" class="btn-secondary">
+          <span class="material-symbols-outlined">explore</span>
+          <span>{{ t('navbar.about') }}</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Floating environmental indicators -->
+    <div class="hero-indicators-grid">
+      <div class="indicator-card glass-panel">
+        <span class="material-symbols-outlined indicator-icon">filter_hdr</span>
+        <div class="indicator-info">
+          <h4>{{ t('hero.elevation') }}</h4>
+        </div>
+      </div>
+      <div class="indicator-card glass-panel">
+        <span class="material-symbols-outlined indicator-icon">air</span>
+        <div class="indicator-info">
+          <h4>{{ t('hero.air') }}</h4>
+        </div>
+      </div>
+      <div class="indicator-card glass-panel">
+        <span class="material-symbols-outlined indicator-icon">traffic</span>
+        <div class="indicator-info">
+          <h4>{{ t('hero.traffic') }}</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ambient Sound Controls Floating Badge -->
+  <div class="sound-control-badge glass-panel" (click)="toggleSound()" [class.playing]="soundEnabled()">
+    @if (soundEnabled()) {
+      <div class="equalizer-bars">
+        <span class="bar bar-1"></span>
+        <span class="bar bar-2"></span>
+        <span class="bar bar-3"></span>
+      </div>
+    } @else {
+      <span class="material-symbols-outlined">volume_off</span>
+    }
+    <span class="sound-text">{{ soundEnabled() ? 'Sonido Activo' : 'Activar Sonido del Río' }}</span>
+  </div>
+</section>
+
+<!-- ABOUT SECTION -->
+<section id="about" class="section-padding about-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">{{ t('navbar.about') }}</span>
+      <h2>{{ t('about.title') }}</h2>
+      <p class="section-subtitle">{{ t('about.subtitle') }}</p>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-text">
+        <p class="lead-text">{{ t('about.desc1') }}</p>
+        <p>{{ t('about.desc2') }}</p>
+        
+        <div class="features-list">
+          <div class="feature-item">
+            <span class="material-symbols-outlined feature-icon">forest</span>
+            <div>
+              <h3>{{ t('about.feature1_title') }}</h3>
+              <p>{{ t('about.feature1_desc') }}</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="material-symbols-outlined feature-icon">water_elevation</span>
+            <div>
+              <h3>{{ t('about.feature2_title') }}</h3>
+              <p>{{ t('about.feature2_desc') }}</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="material-symbols-outlined feature-icon">kayaking</span>
+            <div>
+              <h3>{{ t('about.feature3_title') }}</h3>
+              <p>{{ t('about.feature3_desc') }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- About Image Panel with highlight banners -->
+      <div class="about-visuals">
+        <div class="image-wrapper shadow-lg">
+          <img src="/images/landscape_spring.jpg" alt="Lashichala Landscape" class="about-img">
+          
+          <!-- Floating Highlight: Safe for Kids -->
+          <div class="highlight-banner kids-banner glass-panel">
+            <span class="material-symbols-outlined highlight-icon">child_friendly</span>
+            <div class="highlight-content">
+              <h4>{{ t('about.kids_title') }}</h4>
+              <p>{{ t('about.kids_desc') }}</p>
+            </div>
+          </div>
+
+          <!-- Floating Highlight: Pure River -->
+          <div class="highlight-banner river-banner glass-panel">
+            <span class="material-symbols-outlined highlight-icon">waves</span>
+            <div class="highlight-content">
+              <h4>{{ t('about.river_title') }}</h4>
+              <p>{{ t('about.river_desc') }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GEOGRAPHIC REGION SECTION -->
+<section id="geo" class="section-padding geo-section" style="background-image: linear-gradient(rgba(17, 38, 29, 0.94), rgba(7, 13, 11, 0.97)), url('/images/hero_bg.jpg'); background-size: cover; background-position: center; background-attachment: fixed; color: var(--color-text-light);">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag" style="color: var(--color-gold-bright);">{{ t('navbar.geo') }}</span>
+      <h2 style="color: var(--color-text-light);">{{ t('geo.title') }}</h2>
+      <p class="section-subtitle" style="color: var(--color-gold-bright);">{{ t('geo.subtitle') }}</p>
+    </div>
+
+    <div class="geo-grid">
+      <div class="geo-description">
+        <p class="lead-text" style="color: var(--color-gold-bright);">{{ t('geo.desc1') }}</p>
+        <p style="color: rgba(245, 248, 246, 0.85); margin-bottom: 24px;">{{ t('geo.desc2') }}</p>
+      </div>
+
+      <!-- Stats Grid -->
+      <div class="geo-stats-grid">
+        <div class="stat-card glass-panel">
+          <span class="material-symbols-outlined stat-icon">explore_nearby</span>
+          <div class="stat-number">{{ t('geo.stat_area') }}</div>
+          <div class="stat-label">{{ t('geo.stat_area_label') }}</div>
+        </div>
+
+        <div class="stat-card glass-panel">
+          <span class="material-symbols-outlined stat-icon">filter_hdr</span>
+          <div class="stat-number">{{ t('geo.stat_elev') }}</div>
+          <div class="stat-label">{{ t('geo.stat_elev_label') }}</div>
+        </div>
+
+        <div class="stat-card glass-panel">
+          <span class="material-symbols-outlined stat-icon">route</span>
+          <div class="stat-number">{{ t('geo.stat_len') }}</div>
+          <div class="stat-label">{{ t('geo.stat_len_label') }}</div>
+        </div>
+
+        <div class="stat-card glass-panel">
+          <span class="material-symbols-outlined stat-icon">group_off</span>
+          <div class="stat-number">{{ t('geo.stat_pop') }}</div>
+          <div class="stat-label">{{ t('geo.stat_pop_label') }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MINERAL SPRINGS SECTION -->
+<section id="springs" class="section-padding springs-section" style="background-color: var(--color-bg-alt);">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">{{ t('navbar.springs') }}</span>
+      <h2>{{ t('springs.title') }}</h2>
+      <p class="section-subtitle">{{ t('springs.subtitle') }}</p>
+      <p class="header-desc">{{ t('springs.intro') }}</p>
+    </div>
+
+    <!-- Springs Grid (7 Springs) -->
+    <div class="springs-grid">
+      <!-- Iron Spring (Highlight) -->
+      <div class="spring-card iron-card glass-panel shadow-md">
+        <span class="material-symbols-outlined spring-icon iron-color">colorize</span>
+        <h3>{{ t('springs.s1_name') }}</h3>
+        <p>{{ t('springs.s1_desc') }}</p>
+        <span class="badge-tag iron-tag">Bicarbonato Cálcico-Magnésico + Fe</span>
+      </div>
+
+      <!-- Other springs -->
+      <div class="spring-card glass-panel shadow-sm">
+        <span class="material-symbols-outlined spring-icon">spa</span>
+        <h3>{{ t('springs.s2_name') }}</h3>
+        <p>{{ t('springs.s2_desc') }}</p>
+      </div>
+
+      <div class="spring-card glass-panel shadow-sm">
+        <span class="material-symbols-outlined spring-icon">insights</span>
+        <h3>{{ t('springs.s3_name') }}</h3>
+        <p>{{ t('springs.s3_desc') }}</p>
+      </div>
+
+      <div class="spring-card glass-panel shadow-sm">
+        <span class="material-symbols-outlined spring-icon">bubble_chart</span>
+        <h3>{{ t('springs.s4_name') }}</h3>
+        <p>{{ t('springs.s4_desc') }}</p>
+      </div>
+
+      <div class="spring-card glass-panel shadow-sm">
+        <span class="material-symbols-outlined spring-icon">park</span>
+        <h3>{{ t('springs.s5_name') }}</h3>
+        <p>{{ t('springs.s5_desc') }}</p>
+      </div>
+
+      <div class="spring-card glass-panel shadow-sm">
+        <span class="material-symbols-outlined spring-icon">heap_snapshot_large</span>
+        <h3>{{ t('springs.s6_name') }}</h3>
+        <p>{{ t('springs.s6_desc') }}</p>
+      </div>
+
+      <div class="spring-card glass-panel shadow-sm">
+        <span class="material-symbols-outlined spring-icon">ac_unit</span>
+        <h3>{{ t('springs.s7_name') }}</h3>
+        <p>{{ t('springs.s7_desc') }}</p>
+      </div>
+    </div>
+
+    <!-- Health Fact Box -->
+    <div class="fact-box shadow-sm">
+      <span class="material-symbols-outlined fact-icon">info</span>
+      <p>{{ t('springs.springs_fact') }}</p>
+    </div>
+  </div>
+</section>
+
+<!-- ROOMS SECTION -->
+<section id="rooms" class="section-padding rooms-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">{{ t('navbar.rooms') }}</span>
+      <h2>{{ t('rooms.title') }}</h2>
+      <p class="section-subtitle">{{ t('rooms.subtitle') }}</p>
+      <p class="header-desc">{{ t('rooms.pricing_desc') }}</p>
+    </div>
+
+    <div class="rooms-grid">
+      <!-- Suite Card -->
+      <div class="room-card shadow-md">
+        <div class="room-img-wrapper">
+          <img src="/images/room_suite.jpg" alt="Family Suite" class="room-img">
+          <div class="room-price-badge">
+            <span class="amount">120 GEL</span>
+            <span class="per">/ {{ t('rooms.per_night') }}</span>
+          </div>
+        </div>
+        <div class="room-info">
+          <h3>{{ t('rooms.suite') }}</h3>
+          <p>{{ t('rooms.suite_desc') }}</p>
+          <ul class="room-specs">
+            <li><span class="material-symbols-outlined">aspect_ratio</span> 45 m²</li>
+            <li><span class="material-symbols-outlined">bed</span> 1 Cama King + 1 Individual</li>
+            <li><span class="material-symbols-outlined">balcony</span> Balcón al río</li>
+          </ul>
+          <a href="#calendar" (click)="selectedRoomType.set('suite')" class="btn-primary w-100">{{ t('rooms.book_now_btn') }}</a>
+        </div>
+      </div>
+
+      <!-- Double Room Card -->
+      <div class="room-card shadow-md">
+        <div class="room-img-wrapper">
+          <img src="/images/dining.jpg" alt="Double Room" class="room-img">
+          <div class="room-price-badge">
+            <span class="amount">60 GEL</span>
+            <span class="per">/ {{ t('rooms.per_night') }}</span>
+          </div>
+        </div>
+        <div class="room-info">
+          <h3>{{ t('rooms.double') }}</h3>
+          <p>{{ t('rooms.double_desc') }}</p>
+          <ul class="room-specs">
+            <li><span class="material-symbols-outlined">aspect_ratio</span> 25 m²</li>
+            <li><span class="material-symbols-outlined">bed</span> 1 Cama de Matrimonio</li>
+            <li><span class="material-symbols-outlined">fireplace</span> Chimenea tradicional</li>
+          </ul>
+          <a href="#calendar" (click)="selectedRoomType.set('double')" class="btn-primary w-100">{{ t('rooms.book_now_btn') }}</a>
+        </div>
+      </div>
+
+      <!-- Cabin Card -->
+      <div class="room-card shadow-md">
+        <div class="room-img-wrapper">
+          <img src="/images/hero_bg.jpg" alt="Eco Cabin" class="room-img">
+          <div class="room-price-badge">
+            <span class="amount">80 GEL</span>
+            <span class="per">/ {{ t('rooms.per_night') }}</span>
+          </div>
+        </div>
+        <div class="room-info">
+          <h3>{{ t('rooms.cabin') }}</h3>
+          <p>{{ t('rooms.cabin_desc') }}</p>
+          <ul class="room-specs">
+            <li><span class="material-symbols-outlined">aspect_ratio</span> 35 m²</li>
+            <li><span class="material-symbols-outlined">cabin</span> Cabaña independiente</li>
+            <li><span class="material-symbols-outlined">group</span> Espacio para 4 personas</li>
+          </ul>
+          <a href="#calendar" (click)="selectedRoomType.set('cabin')" class="btn-primary w-100">{{ t('rooms.book_now_btn') }}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CALENDAR & BOOKING SECTION -->
+<section id="calendar" class="section-padding calendar-section" style="background-color: var(--color-bg-alt);">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">{{ t('navbar.calendar') }}</span>
+      <h2>{{ t('calendar.title') }}</h2>
+      <p class="section-subtitle">Planifica tu escapada a Lashichala (Agosto 2026)</p>
+    </div>
+
+    <div class="calendar-booking-grid">
+      <!-- Interactive Custom Calendar Component -->
+      <div class="calendar-card glass-panel shadow-md">
+        <div class="calendar-header">
+          <h3>{{ currentMonthYear() }}</h3>
+          <button class="btn-clear" (click)="clearDates()">Reestablecer</button>
+        </div>
+
+        <div class="calendar-weekdays">
+          <span>Lun</span><span>Mar</span><span>Mié</span><span>Jue</span><span>Vie</span><span>Sáb</span><span>Dom</span>
+        </div>
+
+        <div class="calendar-days-grid">
+          <!-- Offset padding days since Aug 1, 2026 starts on Saturday (5 empty slots) -->
+          @for (empty of [1,2,3,4,5]; track empty) {
+            <span class="day-empty"></span>
+          }
+          
+          <!-- Month Days -->
+          @for (day of calendarDays(); track day.dateStr) {
+            <button 
+              [ngClass]="getDayClass(day)"
+              [disabled]="day.isBooked"
+              (click)="onDayClick(day)">
+              <span class="day-number">{{ day.dayNum }}</span>
+            </button>
+          }
+        </div>
+
+        <!-- Legend -->
+        <div class="calendar-legend">
+          <div class="legend-item"><span class="bullet booked"></span><span>Ocupado</span></div>
+          <div class="legend-item"><span class="bullet available"></span><span>Disponible</span></div>
+          <div class="legend-item"><span class="bullet selected"></span><span>Seleccionado</span></div>
+          <div class="legend-item"><span class="bullet range"></span><span>Rango</span></div>
+        </div>
+      </div>
+
+      <!-- Booking Form & Price Calculator -->
+      <div class="booking-calculator glass-panel shadow-md">
+        <h3>Pre-reserva tu estancia</h3>
+        
+        <div class="form-group">
+          <label>{{ t('calendar.select_room') }}</label>
+          <select 
+            class="form-control" 
+            [value]="selectedRoomType()" 
+            (change)="selectedRoomType.set($any($event.target).value)">
+            <option value="">{{ t('calendar.placeholder_room') }}</option>
+            <option value="suite">{{ t('rooms.suite') }} - 120 GEL/{{ t('rooms.per_night') }}</option>
+            <option value="double">{{ t('rooms.double') }} - 60 GEL/{{ t('rooms.per_night') }}</option>
+            <option value="cabin">{{ t('rooms.cabin') }} - 80 GEL/{{ t('rooms.per_night') }}</option>
+          </select>
+        </div>
+
+        <div class="booking-dates-preview">
+          <div class="date-preview-item">
+            <span class="label">{{ t('calendar.check_in') }}</span>
+            <span class="value">{{ checkInDate() || '---' }}</span>
+          </div>
+          <div class="date-preview-arrow">
+            <span class="material-symbols-outlined">arrow_forward</span>
+          </div>
+          <div class="date-preview-item">
+            <span class="label">{{ t('calendar.check_out') }}</span>
+            <span class="value">{{ checkOutDate() || '---' }}</span>
+          </div>
+        </div>
+
+        <!-- Price breakdown -->
+        <div class="price-breakdown">
+          @if (checkInDate() && checkOutDate() && selectedRoomType()) {
+            <div class="price-row">
+              <span>{{ t('rooms.' + selectedRoomType()) }}</span>
+              <span>{{ pricePerNight() }} GEL x {{ totalNights() }} noches</span>
+            </div>
+            <div class="price-divider"></div>
+            <div class="price-total">
+              <span>{{ t('calendar.total_price') }}</span>
+              <span class="total-amount">{{ totalPrice() }} GEL</span>
+            </div>
+          } @else {
+            <p class="select-prompt">{{ t('calendar.select_dates_first') }}</p>
+          }
+        </div>
+
+        <!-- Submit Button -->
+        <button 
+          class="btn-booking pulse-glow" 
+          [disabled]="!checkInDate() || !checkOutDate() || !selectedRoomType()"
+          (click)="submitBooking()">
+          <i class="fa-brands fa-whatsapp"></i>
+          <span>{{ t('calendar.send_booking_wa') }}</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INFLUENCERS & REVIEWS SECTION -->
+<section id="reviews" class="section-padding reviews-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">{{ t('navbar.reviews') }}</span>
+      <h2>{{ t('reviews.title') }}</h2>
+      <p class="section-subtitle">{{ t('reviews.subtitle') }}</p>
+    </div>
+
+    <!-- Testimonials Slider -->
+    <div class="reviews-slider">
+      <button class="slider-btn prev-btn" (click)="prevReview()" aria-label="Previous review">
+        <span class="material-symbols-outlined">keyboard_arrow_left</span>
+      </button>
+
+      <div class="review-slide-container">
+        @if (activeReviewIndex() === 0) {
+          <div class="review-card animate-fade-in-up">
+            <div class="rating">
+              <span class="material-symbols-outlined filled">star</span>
+              <span class="material-symbols-outlined filled">star</span>
+              <span class="material-symbols-outlined filled">star</span>
+              <span class="material-symbols-outlined filled">star</span>
+              <span class="material-symbols-outlined filled">star</span>
+            </div>
+            <p class="review-text">"{{ t('reviews.r1_text') }}"</p>
+            <div class="review-author">
+              <div class="author-avatar"><span class="material-symbols-outlined">videocam</span></div>
+              <div class="author-meta">
+                <h4>{{ t('reviews.r1_author') }}</h4>
+                <p>{{ t('reviews.r1_role') }}</p>
+              </div>
+            </div>
+            <div class="influencer-action">
+              <a href="https://youtube.com" target="_blank" class="btn-secondary btn-sm">
+                <i class="fa-brands fa-youtube"></i> Ver Video de Visita
+              </a>
+            </div>
+          </div>
+        }
+
+        @if (activeReviewIndex() === 1) {
+          <div class="review-card animate-fade-in-up">
+            <div class="rating">
+              <span class="material-symbols-outlined filled">star</span>
+              <span class="material-symbols-outlined filled">star</span>
+              <span class="material-symbols-outlined filled">star</span>
+              <span class="material-symbols-outlined filled">star</span>
+              <span class="material-symbols-outlined filled">star</span>
+            </div>
+            <p class="review-text">"{{ t('reviews.r2_text') }}"</p>
+            <div class="review-author">
+              <div class="author-avatar"><span class="material-symbols-outlined">photo_camera</span></div>
+              <div class="author-meta">
+                <h4>{{ t('reviews.r2_author') }}</h4>
+                <p>{{ t('reviews.r2_role') }}</p>
+              </div>
+            </div>
+            <div class="influencer-action">
+              <a href="https://instagram.com" target="_blank" class="btn-secondary btn-sm">
+                <i class="fa-brands fa-instagram"></i> Ver Publicación
+              </a>
+            </div>
+          </div>
+        }
+
+        @if (activeReviewIndex() === 2) {
+          <div class="review-card animate-fade-in-up">
+            <div class="rating">
+              <span class="material-symbols-outlined filled">star</span>
+              <span class="material-symbols-outlined filled">star</span>
+              <span class="material-symbols-outlined filled">star</span>
+              <span class="material-symbols-outlined filled">star</span>
+              <span class="material-symbols-outlined filled">star</span>
+            </div>
+            <p class="review-text">"{{ t('reviews.r3_text') }}"</p>
+            <div class="review-author">
+              <div class="author-avatar"><span class="material-symbols-outlined">face</span></div>
+              <div class="author-meta">
+                <h4>{{ t('reviews.r3_author') }}</h4>
+                <p>{{ t('reviews.r3_role') }}</p>
+              </div>
+            </div>
+            <div class="influencer-action">
+              <a href="https://youtube.com" target="_blank" class="btn-secondary btn-sm">
+                <i class="fa-brands fa-wordpress"></i> Leer Reportaje Completo
+              </a>
+            </div>
+          </div>
+        }
+      </div>
+
+      <button class="slider-btn next-btn" (click)="nextReview()" aria-label="Next review">
+        <span class="material-symbols-outlined">keyboard_arrow_right</span>
+      </button>
+    </div>
+
+    <!-- Slider Indicator Dots -->
+    <div class="slider-dots">
+      @for (dot of [0, 1, 2]; track dot) {
+        <span 
+          class="dot" 
+          [class.active]="activeReviewIndex() === dot"
+          (click)="setReviewIndex(dot)">
+        </span>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT & FOOTER SECTION -->
+<footer id="contact" class="footer-section section-padding">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <a href="#home" class="logo footer-logo">
+        <span class="material-symbols-outlined logo-icon">nature_people</span>
+        <span class="logo-text">Karlo Guesthouse</span>
+      </a>
+      <p class="footer-desc">{{ t('footer.desc') }}</p>
+      
+      <div class="social-links">
+        <a href="https://facebook.com" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+        <a href="https://instagram.com" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://youtube.com" target="_blank" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+      </div>
+    </div>
+
+    <div class="footer-contact">
+      <h3>{{ t('navbar.contact') }}</h3>
+      <div class="contact-details">
+        <div class="contact-item">
+          <span class="material-symbols-outlined">phone_iphone</span>
+          <div>
+            <h4>{{ t('footer.phone') }}</h4>
+            <a href="https://wa.me/34631331132" class="phone-link" target="_blank">+34 631 331 132</a>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <span class="material-symbols-outlined">location_on</span>
+          <div>
+            <h4>{{ t('footer.location') }}</h4>
+            <p>{{ t('footer.address') }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Map Simulation -->
+    <div class="footer-map glass-panel shadow-sm">
+      <div class="map-overlay">
+        <span class="material-symbols-outlined map-pin animate-float">location_on</span>
+        <div class="map-label">
+          <h4>Valle de Lashichala</h4>
+          <p>900m Elevación | Racha-Lechjumi</p>
+        </div>
+      </div>
+      <!-- Simulated topographic grid background -->
+      <div class="topographic-sim"></div>
+    </div>
+  </div>
+
+  <div class="container footer-divider"></div>
+
+  <div class="container copyright-wrapper">
+    <p>&copy; 2026 Karlo Guesthouse. {{ t('footer.rights') }}</p>
+    <p class="hosting-label"><i class="fa-solid fa-cloud-bolt"></i> Hosted on Firebase Hosting</p>
+  </div>
+</footer>

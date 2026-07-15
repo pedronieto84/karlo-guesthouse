@@ -1,0 +1,18 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Reglas para la colección de habitaciones (rooms)
+    match /rooms/{roomId} {
+      allow read: if true; // Lectura pública para mostrar precios y tipos
+      allow write: if request.auth != null && request.auth.token.email == 'pedro.nieto.sanchez@gmail.com'; // Solo Pedro puede editar o crear habitaciones
+    }
+    
+    // Reglas para la colección de reservas (bookings)
+    match /bookings/{bookingId} {
+      allow read: if true; // Lectura pública para que el calendario muestre las fechas ocupadas
+      allow create: if true; // Permitir que los huéspedes envíen pre-reservas (estado 'pending')
+      allow update, delete: if request.auth != null && request.auth.token.email == 'pedro.nieto.sanchez@gmail.com'; // Solo Pedro puede confirmar, editar o borrar reservas
+    }
+  }
+}
